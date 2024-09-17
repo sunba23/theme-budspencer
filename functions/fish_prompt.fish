@@ -743,17 +743,16 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
         set todo (task due.before:sunday 2> /dev/null | tail -1 | cut -f1 -d' ')
         set overdue (task due.before:today 2> /dev/null | tail -1 | cut -f1 -d' ')
     end
+
+    set appointments 0
     if [ -e ~/.reminders ]
-        set appointments (rem -a | cut -f1 -d' ')
+        set appointments (rem -a | cut -f1 -d' ' | count)
     end
     if [ (count $todo) -eq 0 ]
         set todo 0
     end
     if [ (count $overdue) -eq 0 ]
         set overdue 0
-    end
-    if [ (count $appointments) -eq 0 ]
-        set appointments 0
     end
 
     if [ $symbols_style = 'symbols' ]
